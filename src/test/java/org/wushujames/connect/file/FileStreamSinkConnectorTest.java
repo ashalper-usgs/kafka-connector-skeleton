@@ -17,28 +17,25 @@
 
 package org.wushujames.connect.file;
 
-import org.apache.kafka.common.TopicPartition;
-import org.apache.kafka.connect.connector.ConnectorContext;
-import org.apache.kafka.connect.sink.SinkConnector;
-import org.junit.Before;
-import org.junit.Test;
-import org.powermock.api.easymock.PowerMock;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.connect.connector.ConnectorContext;
+import org.apache.kafka.connect.sink.SinkConnector;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import org.powermock.api.easymock.PowerMock;
 
 public class FileStreamSinkConnectorTest {
 
     private static final String MULTIPLE_TOPICS = "test1,test2";
-    private static final String[] MULTIPLE_TOPICS_LIST
-            = MULTIPLE_TOPICS.split(",");
-    private static final List<TopicPartition> MULTIPLE_TOPICS_PARTITIONS = Arrays.asList(
-            new TopicPartition("test1", 1), new TopicPartition("test2", 2)
-    );
     private static final String FILENAME = "/afilename";
 
     private FileStreamSinkConnector connector;

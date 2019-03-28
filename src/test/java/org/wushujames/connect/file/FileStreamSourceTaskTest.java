@@ -17,15 +17,7 @@
 
 package org.wushujames.connect.file;
 
-import org.apache.kafka.connect.errors.ConnectException;
-import org.apache.kafka.connect.source.SourceRecord;
-import org.apache.kafka.connect.source.SourceTaskContext;
-import org.apache.kafka.connect.storage.OffsetStorageReader;
-import org.easymock.EasyMock;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.powermock.api.easymock.PowerMock;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,7 +27,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import org.apache.kafka.connect.errors.ConnectException;
+import org.apache.kafka.connect.source.SourceRecord;
+import org.apache.kafka.connect.source.SourceTaskContext;
+import org.apache.kafka.connect.storage.OffsetStorageReader;
+
+import org.easymock.EasyMock;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import org.powermock.api.easymock.PowerMock;
 
 public class FileStreamSourceTaskTest {
 
@@ -117,6 +120,7 @@ public class FileStreamSourceTaskTest {
 
         os.write("subsequent text".getBytes());
         os.flush();
+        os.close();
         records = task.poll();
         assertEquals(1, records.size());
         assertEquals("", records.get(0).value());
@@ -142,9 +146,10 @@ public class FileStreamSourceTaskTest {
             assertEquals(null, task.poll());
     }
 
-
-    private void expectOffsetLookupReturnNone() {
+    @SuppressWarnings("unchecked")
+	private void expectOffsetLookupReturnNone() {
         EasyMock.expect(context.offsetStorageReader()).andReturn(offsetStorageReader);
         EasyMock.expect(offsetStorageReader.offset(EasyMock.anyObject(Map.class))).andReturn(null);
     }
-}
+    
+} // FileStreamSourceTaskTest
