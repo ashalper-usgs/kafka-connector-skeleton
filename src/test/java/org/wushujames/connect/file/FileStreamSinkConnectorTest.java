@@ -19,12 +19,10 @@ package org.wushujames.connect.file;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.connect.connector.ConnectorContext;
 import org.apache.kafka.connect.sink.SinkConnector;
 
@@ -80,4 +78,5 @@ public class FileStreamSinkConnectorTest {
 
         PowerMock.verifyAll();
     }
-}
+    
+} // FileStreamSinkConnectorTest
